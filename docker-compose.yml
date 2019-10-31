@@ -3,28 +3,18 @@ services:
   db:
     image: postgres:9.6
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   web:
-    image: docker.giffin.org/tmcclung/docker-rails-postgres
-    build:
-      context: rails/.
-    working_dir: /mnt/rails
+    image: docker.giffin.org/dustyspace/docker-rails-postgres
     command: 
-    - bundle 
-    - exec 
-    - rails 
-    - s 
-    - -p 
-    - "5000" 
-    - -b 
-    - '0.0.0.0'
-    volumes:
-      - ./rails:/mnt/rails
+    - "./run.sh"
+    environment:
+    - SECRET_KEY_BASE=97ea965865c3166ce84f632add51fd1da30a3a15b32d76a3bca47fc516e88acaa4dab03028adbd3d6c656ff0fbe7c95fe7be1102122d48b1786ce40eef3e213e
     ports:
-      - "80:5000"
+      - "5000:5000"
     links:
       - db
     depends_on:
