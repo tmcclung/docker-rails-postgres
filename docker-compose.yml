@@ -11,7 +11,6 @@ services:
     build:
       context: rails/.
     working_dir: /mnt/rails
-    env_file: .env-sample
     command: bundle exec rails s -p 5000 -b '0.0.0.0'
     volumes:
       - ./rails:/mnt/rails
